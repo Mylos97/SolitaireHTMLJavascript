@@ -72,6 +72,17 @@ function flipCard(card) {
     card.classList.toggle('card-back');
 }
 
+function flipLastCardInColum() {
+    console.log('draggin from ', draggedColumn);
+    if (draggedColumn.classList.contains('deck-river')) {
+        console.log('i am here wtf')
+        return;
+    }
+    const card = draggedColumn.lastElementChild;
+    if(!card) return;
+    flipCard(card);
+}
+
 function drawCard(card) {
     const cardDiv = document.createElement('div');
     const upperCardDiv = document.createElement('div');
@@ -241,16 +252,17 @@ function handleDropLowerColumn(e) {
     const lastCardRankIndex = lastCard?.getAttribute('rankindex');
     const lastCardIsRed = lastCard?.getAttribute('isred');
 
+    console.log('before IFFF')
     if(column.children.length == 0 && parseInt(draggedRankIndex) === 13) isKing = true;
     if(draggedIsRed === lastCardIsRed && isKing === false) return;
     if(lastCardRankIndex - draggedRankIndex !== 1 && isKing === false) return;
     if(lastCard) lastCard.draggable = true;
+    
     appendDraggedCards(column);
-
-    if(e.target.parentElement.classList.contains('card-column') || e.target.parentElement.classList.contains('lower-columns')) {
-        setDragableCards(draggedColumn);
-        placeCardInColumn(column);
-    }
+    placeCardInColumn(column);
+    flipLastCardInColum();
+    setDragableCards(column);
+    setDragableCards(draggedColumn);
 }
 
 function handleDropUpperColumn(e) {
@@ -267,6 +279,7 @@ function handleDropUpperColumn(e) {
     if(lastCard === null && draggedRankIndex == 1) {
         draggedCards[0].style.top = 0;
         column.appendChild(draggedCards[0]);
+        flipLastCardInColum();
     }
 
     if(draggedSuit != lastCardSuit) return;
@@ -275,12 +288,13 @@ function handleDropUpperColumn(e) {
     draggedCards[0].style.top = 0;
     lastCard.draggable = false;
     column.appendChild(draggedCards[0]);
+    flipLastCardInColum();
 }
 
 function setDragableCards(col) {
     const cards = Array.from(col.children);
     currentCard = cards[cards.length - 1];
-    previousCard = currentCard.previousSibling;
+    previousCard = currentCard?.previousSibling;
     currentCard.draggable = true;
 
     if(!previousCard) return;

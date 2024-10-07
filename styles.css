@@ -15,8 +15,13 @@
 
 .uper-game-area {
     border: red 1px solid;
-    flex: 1;
     display: flex;
+    flex: 1;
+}
+
+.lower-game-area {
+    border: blue 1px solid;
+    flex: 3;
 }
 
 .lower-columns {
@@ -25,10 +30,6 @@
     height: 100%;
 }
 
-.lower-game-area {
-    border: blue 1px solid;
-    flex: 3;
-}
 
 html, body {
     margin: 0;
