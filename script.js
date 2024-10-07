@@ -56,7 +56,6 @@ function prepareUpper(){
     upperArea.appendChild(deckPlaceholder);
     upperArea.appendChild(deckPlacement);
 
-
     gameArea.append(upperArea);
 }
 

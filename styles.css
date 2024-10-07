@@ -82,6 +82,10 @@ html, body {
         transparent 10px,
         transparent 20px
     );
+}
+
+.deck-placement > * {
+    pointer-events: all;
     cursor: pointer;
 }
 
