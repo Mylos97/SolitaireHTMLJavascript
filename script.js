@@ -132,6 +132,7 @@ function putCardsInColumns(deck) {
             cardObject.pos = j;
             cardObject.col = i;
             const card = createCard(cardObject);
+            if (j != i) flipCard(card);
             if(j == i) card.draggable = true;
             currentCol.append(card);
         }
@@ -171,7 +172,6 @@ function deckClicked(e) {
 }
 
 function handleDragStart(e) {
-    const draggingDiv = document.createElement('div');
     draggedCards = [];
     draggedColumn = e.target.parentElement;
     draggedCards.push(e.target);
