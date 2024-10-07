@@ -33,30 +33,29 @@ function prepareLower() {
 
 function prepareUpper(){
     const upperArea = document.createElement('div');
-    const gatherColumns = document.createElement('div');
-    const deckColumn = document.createElement('div');
     const deckPlacement = document.createElement('div');
+    const deckPlaceholder = document.createElement('div');
     const river = document.createElement('div');
 
     upperArea.className = 'uper-game-area';
-    gatherColumns.className = 'gather-columns';
-    deckColumn.className = 'deck-column';
     deckPlacement.className = 'deck-placement';
+    deckPlaceholder.className = 'deck-placeholder';
     river.className = 'deck-river';
+
 
 
     for(let i = 0; i < 4; i++) {
         const gather = document.createElement('div');
         gather.className = 'gather-column';
-        gatherColumns.append(gather);
+        upperArea.append(gather);
         gather.addEventListener('dragover', handleDragOver);
         gather.addEventListener('drop', handleDropUpperColumn);
     }
 
-    upperArea.append(gatherColumns);
-    deckColumn.appendChild(river);
-    deckColumn.appendChild(deckPlacement);
-    upperArea.append(deckColumn);
+    upperArea.appendChild(river);
+    upperArea.appendChild(deckPlaceholder);
+    upperArea.appendChild(deckPlacement);
+
 
     gameArea.append(upperArea);
 }

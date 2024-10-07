@@ -85,10 +85,12 @@ html, body {
     cursor: pointer;
 }
 
+.deck-placeholder,
+.deck-placement,
 .deck-river {
-    height: 100%;
-    width: 25%;
     position: relative;
+    display: flex;
+    flex: 1;
 }
 
 .gather-column > *,
