@@ -2,12 +2,16 @@ const gameArea = document.getElementById('game-area');
 const deck = makeCardDeck();
 let draggedCards = null;
 let draggedColumn = null;
-let draggingClone = document.getElementById('dragging-clone');
-prepareUpper();
-prepareLower();
-putCardsInColumns(deck);
-putCardsInDeck(deck);
-placeCardsInColumms();
+
+startGame();
+
+function startGame() {
+    prepareUpper();
+    prepareLower();
+    putCardsInColumns(deck);
+    putCardsInDeck(deck);
+    placeCardsInColumms();    
+}
 
 function prepareLower() {
     const lowerArea = document.createElement('div');

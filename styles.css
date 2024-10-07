@@ -1,7 +1,7 @@
 .game-area {
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle, #1d7f1d 0%, #135b13 80%);
+    background: radial-gradient(circle, #1b821b 0%, #145d14 50%);
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5), inset 0px 5px 10px rgba(0, 0, 0, 0.3);
     position: relative;
     box-sizing: border-box;
@@ -74,7 +74,7 @@ html, body {
 }
 
 .card.card-back {
-    background-color: #2E8B57;
+    background-color: #1569C7;
     background-image: repeating-linear-gradient(
         45deg,
         rgba(255, 255, 255, 0.1),
