@@ -83,7 +83,6 @@ html, body {
         transparent 20px
     );
     cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.0);
 }
 
 .deck-river {
@@ -91,6 +90,21 @@ html, body {
     width: 25%;
     position: relative;
 }
+
+.gather-column > *,
+.deck-placement > *,
+.deck-river  > * {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+.gather-column > *:not(:first-child),
+.deck-placement > *:not(:first-child),
+.deck-river > *:not(:first-child) {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.0);
+}
+
 
 .deck-column {
     flex: 1;

@@ -2,6 +2,7 @@ const gameArea = document.getElementById('game-area');
 const deck = makeCardDeck();
 let draggedCards = null;
 let draggedColumn = null;
+let draggingClone = document.getElementById('dragging-clone');
 prepareUpper();
 prepareLower();
 putCardsInColumns(deck);
@@ -157,7 +158,6 @@ function putCardsInDeck(deck) {
     for(let i = 0; i < length; i++) {
         const cardObject = deck.shift();
         const card = createCard(cardObject);
-        card.style.top = 0;
         flipCard(card);
         deckColumn.appendChild(card);
     }
@@ -175,7 +175,7 @@ function deckClicked(e) {
     if(target.children.length !== 0) return;
     const deckPlacement = document.querySelector('.deck-placement');
 
-    Array.from(river.children).forEach(card => {
+    Array.from(river.children).reverse().forEach(card => {
         flipCard(card);
         deckPlacement.appendChild(card);
     });
@@ -194,6 +194,7 @@ function handleDragStart(e) {
             currentCard = currentCard.nextElementSibling;
         }
     }
+
     draggedCards.forEach(card => card.classList.add('dragging-multiple'));
 }
 
@@ -261,8 +262,8 @@ function handleDropLowerColumn(e) {
     appendDraggedCards(column);
     placeCardInColumn(column);
     flipLastCardInColum();
-    setDragableCards(column);
     setDragableCards(draggedColumn);
+    setDragableCards(column);
 }
 
 function handleDropUpperColumn(e) {
@@ -277,7 +278,7 @@ function handleDropUpperColumn(e) {
     const lastCardSuit = lastCard?.getAttribute('suit');
     
     if(lastCard === null && draggedRankIndex == 1) {
-        draggedCards[0].style.top = 0;
+        draggedCards[0].style.removeProperty('top');
         column.appendChild(draggedCards[0]);
         flipLastCardInColum();
     }
@@ -285,13 +286,15 @@ function handleDropUpperColumn(e) {
     if(draggedSuit != lastCardSuit) return;
     if(draggedRankIndex != parseInt(lastCardRankIndex) + 1) return;
     
-    draggedCards[0].style.top = 0;
+    draggedCards[0].style.removeProperty('top');
     lastCard.draggable = false;
     column.appendChild(draggedCards[0]);
     flipLastCardInColum();
 }
 
 function setDragableCards(col) {
+    if (!col.children.length) return;
+
     const cards = Array.from(col.children);
     currentCard = cards[cards.length - 1];
     previousCard = currentCard?.previousSibling;
@@ -309,11 +312,12 @@ function setDragableCards(col) {
 }
 
 function placeCardInColumn(col) {
-    const firstCard = col.children[0];
+    const firstCard = col.lastElementChild;
     if(!firstCard) return;
     const computedStyle = window.getComputedStyle(firstCard);
     const topPadding = Math.ceil(parseFloat(computedStyle.paddingTop));
-    const height = firstCard.querySelector('.upper-area').offsetHeight + topPadding*1.5;
+    const height = firstCard.querySelector('.upper-area').offsetHeight + topPadding;
+    console.log(height)
     let j = 0;
     const cards = Array.from(col.children);
     setDragableCards(col);
