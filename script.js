@@ -76,11 +76,10 @@ function flipCard(card) {
 }
 
 function flipLastCardInColum() {
-    console.log('draggin from ', draggedColumn);
     if (draggedColumn.classList.contains('deck-river')) {
-        console.log('i am here wtf')
         return;
     }
+
     const card = draggedColumn.lastElementChild;
     if(!card) return;
     flipCard(card);
@@ -96,13 +95,15 @@ function drawCard(card) {
     
     upperCardDiv.appendChild(number);
     upperCardDiv.appendChild(suitImage);
+    upperCardDiv.className = 'upper-area';
     
+
     cardDiv.className = 'card';
     cardDiv.id = card.id;
     cardDiv.setAttribute('isRed', card.isRed);
     cardDiv.setAttribute('suit', card.suit);
-    cardDiv.setAttribute('rankIndex', card.rankIndex)
-    upperCardDiv.className = 'upper-area';
+    cardDiv.setAttribute('rankIndex', card.rankIndex);
+
     cardDiv.appendChild(upperCardDiv);
 
     return cardDiv;
@@ -255,7 +256,6 @@ function handleDropLowerColumn(e) {
     const lastCardRankIndex = lastCard?.getAttribute('rankindex');
     const lastCardIsRed = lastCard?.getAttribute('isred');
 
-    console.log('before IFFF')
     if(column.children.length == 0 && parseInt(draggedRankIndex) === 13) isKing = true;
     if(draggedIsRed === lastCardIsRed && isKing === false) return;
     if(lastCardRankIndex - draggedRankIndex !== 1 && isKing === false) return;
@@ -320,7 +320,6 @@ function placeCardInColumn(col) {
     const computedStyle = window.getComputedStyle(firstCard);
     const topPadding = Math.ceil(parseFloat(computedStyle.paddingTop));
     const height = firstCard.querySelector('.upper-area').offsetHeight + topPadding;
-    console.log(height)
     let j = 0;
     const cards = Array.from(col.children);
     setDragableCards(col);
