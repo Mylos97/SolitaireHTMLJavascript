@@ -37,7 +37,7 @@ function prepareUpper(){
     const deckPlaceholder = document.createElement('div');
     const river = document.createElement('div');
 
-    upperArea.className = 'uper-game-area';
+    upperArea.className = 'upper-game-area';
     deckPlacement.className = 'deck-placement';
     deckPlaceholder.className = 'deck-placeholder';
     river.className = 'deck-river';
@@ -272,7 +272,7 @@ function handleDropUpperColumn(e) {
     e.preventDefault();
     const column = e.target.closest('.gather-column');
     if (!column) return;
-
+    
     const lastCard = column.lastElementChild;
     const draggedRankIndex = draggedCards[0].getAttribute('rankindex');
     const draggedSuit = draggedCards[0].getAttribute('suit');
@@ -283,6 +283,7 @@ function handleDropUpperColumn(e) {
         draggedCards[0].style.removeProperty('top');
         column.appendChild(draggedCards[0]);
         flipLastCardInColum();
+        checkForWinByTotalRankScore();
     }
 
     if(draggedSuit != lastCardSuit) return;
@@ -343,4 +344,23 @@ function drawSuit(suit) {
     img.className = 'suit';
     img.draggable = false;
     return img;
+}
+
+function checkForWinByTotalRankScore() {
+    const upperColumns = document.querySelector('.upper-game-area');
+    const columns = Array.from(upperColumns.children);
+    const gatherColumns = columns.filter(col => col.classList.contains('gather-column'));
+    var totalRanks = 0;
+    
+    gatherColumns.forEach(col => {
+        const card = col.firstElementChild;
+        if (!card) return;
+
+        const rankIndex = parseInt(card.getAttribute('rankindex'));
+        totalRanks += rankIndex;
+    });
+
+    if(totalRanks === 52) {
+        alert('You Win!');
+    };
 }
